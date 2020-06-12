@@ -18,6 +18,7 @@ RUN /doccano/tools/install-mssql.sh --dev
 
 COPY app/frontend/package*.json /doccano/frontend/
 WORKDIR /doccano/frontend
+RUN npm install
 RUN npm ci
 
 COPY requirements.txt /
