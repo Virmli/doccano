@@ -16,7 +16,7 @@ RUN curl -fsSL "https://github.com/hadolint/hadolint/releases/download/${HADOLIN
 COPY tools/install-mssql.sh /doccano/tools/install-mssql.sh
 RUN /doccano/tools/install-mssql.sh --dev
 
-COPY frontend/package*.json /doccano/frontend/
+COPY frontend/package.json /doccano/frontend/
 WORKDIR /doccano/frontend
 RUN npm ci
 
