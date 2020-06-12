@@ -3,7 +3,7 @@ FROM python:${PYTHON_VERSION}-stretch AS builder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG NODE_VERSION="8.x"
+ARG NODE_VERSION="12.x"
 # hadolint ignore=DL3008
 RUN curl -sL "https://deb.nodesource.com/setup_${NODE_VERSION}" | bash - \
  && apt-get install --no-install-recommends -y \
