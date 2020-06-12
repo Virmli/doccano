@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION="3.6"
+ARG PYTHON_VERSION="3.7"
 FROM python:${PYTHON_VERSION}-stretch AS builder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -16,8 +16,8 @@ RUN curl -fsSL "https://github.com/hadolint/hadolint/releases/download/${HADOLIN
 COPY tools/install-mssql.sh /doccano/tools/install-mssql.sh
 RUN /doccano/tools/install-mssql.sh --dev
 
-COPY app/server/static/package*.json /doccano/app/server/static/
-WORKDIR /doccano/app/server/static
+COPY frontend/package*.json /doccano/frontend/
+WORKDIR /doccano/frontend
 RUN npm ci
 
 COPY requirements.txt /
@@ -34,8 +34,8 @@ RUN tools/ci.sh
 
 FROM builder AS cleaner
 
-WORKDIR /doccano/app/server/static
-RUN SOURCE_MAP=False DEBUG=False npm run build \
+WORKDIR /doccano/frontend
+RUN npm run build \
  && rm -rf components pages node_modules .*rc package*.json webpack.config.js
 
 WORKDIR /doccano
